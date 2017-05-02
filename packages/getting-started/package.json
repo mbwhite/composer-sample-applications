@@ -7,7 +7,9 @@
   "description": "The repository for the Fabric Composer Getting Started application",
   "main": "index.js",
   "scripts": {
-    "preinstall": "composer --version  ",
+
+	"postinstall" : "composer --version",
+    "qt" : "echo $npm_package_config_fabricversion",
     "test": "mocha --recursive && npm run bootstrapAssets && npm run listAssets && npm run submitTransaction",
 
     "submitTransaction": "npm run submitTransaction:$npm_package_config_fabricversion",
@@ -22,8 +24,8 @@
     "listAssets:hlfv0.6": "NODE_ENV=hlfv0.6 node cli.js landregistry list",
     "bootstrapAssets:hlfv0.6": "NODE_ENV=hlfv0.6 node cli.js landregistry bootstrap",
 
-    "deployNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna && npm run deployNetwork:$npm_package_config_fabric",
-    "deployNetwork:hlf": "composer network deploy --archiveFile digitalPropertyNetwork.bna  --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d && composer network list -n digitalproperty-network --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d",
+    "deployNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna && npm run deployNetwork:$npm_package_config_fabricversion",
+    "deployNetwork:hlfv0.6": "composer network deploy --archiveFile digitalPropertyNetwork.bna  --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d && composer network list -n digitalproperty-network --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d",
     "deployNetwork:hlfv1": "composer network deploy -p hlfv1 --archiveFile digitalPropertyNetwork.bna  --enrollId admin --enrollSecret adminpw && composer network list -n digitalproperty-network --enrollId admin --enrollSecret adminpw -p hlfv1"
   },
   "repository": {
@@ -41,16 +43,18 @@
   "license": "ISC",
   "dependencies": {
     "cli-table": "^0.3.1",
-    "composer-admin": "^0.5.0",
-    "composer-cli": "^0.5.12",
-    "composer-client": "^0.5.0",
+    "composer-admin": "^0.7.0",
+    "composer-cli": "^0.7.0",
+    "composer-client": "^0.7.0",
     "config": "^1.24.0",
     "digitalproperty-network": "latest",
     "jsonfile": "^2.4.0",
     "lodash": "^4.17.4",
     "sprintf-js": "^1.0.3",
     "winston": "^2.3.0",
-    "yargs": "^6.5.0"
+    "yargs": "^6.5.0",
+    "fabric-client" :"1.0.0-alpha.1",
+    "fabric-ca-client" : "1.0.0-alpha.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
