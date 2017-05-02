@@ -9,7 +9,6 @@
   "scripts": {
 
 	"postinstall" : "composer --version",
-    "qt" : "echo $npm_package_config_fabricversion",
     "test": "mocha --recursive && npm run bootstrapAssets && npm run listAssets && npm run submitTransaction",
 
     "submitTransaction": "npm run submitTransaction:$npm_package_config_fabricversion",
