@@ -31,7 +31,7 @@ winston.loggers.add('application', {
 
 const LOG = winston.loggers.get('application');
 
-LOG.info('Fabric Composer: Getting Started appliation');
+LOG.info('Fabric Composer: Getting Started application');
 
 require('yargs')
   .usage ('node cli.js  <participant> <action>')

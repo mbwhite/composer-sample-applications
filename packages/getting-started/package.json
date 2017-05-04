@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
 	"postinstall" : "composer --version",
-    "preinstall": "rootcheck.sh ",
+    "preinstall": "./rootcheck.sh ",
     "test": "mocha --recursive && npm run bootstrapAssets && npm run listAssets && npm run submitTransaction",
 
     "submitTransaction": "npm run submitTransaction:$npm_package_config_fabricversion",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:fabric-composer/sample-applications"
+    "url": "git@github.com:hyperledger/composer-sample-applications"
   },
   "keywords": [
     "Blockchain",
