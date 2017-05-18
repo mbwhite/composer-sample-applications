@@ -9,23 +9,18 @@
   "scripts": {
 	"postinstall" : "composer --version",
     "preinstall": "./rootcheck.sh ",
-    "test": "mocha --recursive && npm run bootstrapAssets && npm run listAssets && npm run submitTransaction",
+    "test": "npm run bootstrapAssets && npm run listAssets && npm run submitTransaction",
 
-    "submitTransaction": "npm run submitTransaction:$npm_package_config_fabricversion",
-    "listAssets": "npm run listAssets:$npm_package_config_fabricversion",
-    "bootstrapAssets": "npm run bootstrapAssets:$npm_package_config_fabricversion",
-
-    "submitTransaction:hlfv1": "node cli.js landregistry submit && node cli.js landregistry list",
-    "listAssets:hlfv1": "node cli.js landregistry list",
-    "bootstrapAssets:hlfv1": "node cli.js landregistry bootstrap",
+    "submitTransaction": "node cli.js landregistry submit && node cli.js landregistry list",
+    "listAssets": "node cli.js landregistry list",
+    "bootstrapAssets": "node cli.js landregistry bootstrap",
 
     "submitTransaction:hlfv0.6": "NODE_ENV=hlfv0.6 node cli.js landregistry submit && NODE_ENV=hlfv0.6 node cli.js landregistry list",
     "listAssets:hlfv0.6": "NODE_ENV=hlfv0.6 node cli.js landregistry list",
     "bootstrapAssets:hlfv0.6": "NODE_ENV=hlfv0.6 node cli.js landregistry bootstrap",
 
-    "deployNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna && npm run deployNetwork:$npm_package_config_fabricversion",
-    "deployNetwork:hlfv0.6": "composer network deploy --archiveFile digitalPropertyNetwork.bna  --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d && composer network list -n digitalproperty-network --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d",
-    "deployNetwork:hlfv1": "composer network deploy -p hlfv1 --archiveFile digitalPropertyNetwork.bna  --enrollId admin --enrollSecret adminpw && composer network list -n digitalproperty-network --enrollId admin --enrollSecret adminpw -p hlfv1"
+    "deployNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna &&  composer network deploy -p hlfv1 --archiveFile digitalPropertyNetwork.bna  --enrollId admin --enrollSecret adminpw && composer network list -n digitalproperty-network --enrollId admin --enrollSecret adminpw -p hlfv1",
+    "deployNetwork:hlfv0.6": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna && composer network deploy --archiveFile digitalPropertyNetwork.bna  --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d && composer network list -n digitalproperty-network --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d"
   },
   "repository": {
     "type": "git",
@@ -36,7 +31,7 @@
     "Solutions",
     "Framework",
     "getting-started",
-    "Fabric Composer"
+    "Hyplerledger Composer"
   ],
   "author": "Author",
   "license": "ISC",

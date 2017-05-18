@@ -8,21 +8,25 @@ var pretty = require('prettyjson');
 
 
 console.log(chalk.blue.bold('Hyperledger Composer Sample applications available in this repository:\n'));
-let apps = fs.readdirSync('./packages');
+
+let apps = fs.readdirSync('./');
 apps.forEach(function(entry) {
-    var packagejson = require(path.resolve('.','packages',entry,'package.json'));
+	var possiblePackage = path.resolve('.',entry,'package.json');
+	
+	if (fs.existsSync(possiblePackage)){
+	    var packagejson = require(possiblePackage);
 
-    var sampleapp = { 'App Directory': './packages/'+entry,
-                      'App Name':packagejson.name,
-                      'App Description':packagejson.description }
+	    var sampleapp = { 'App Directory': './'+entry,
+	                      'App Name':packagejson.name,
+	                      'App Description':packagejson.description }
 
 
 
-    console.log(pretty.render(sampleapp,{
-        keysColor: 'blue',
-        dashColor: 'blue',
-        stringColor: 'white'
-    }));
-    console.log('\n');
-
+	    console.log(pretty.render(sampleapp,{
+	        keysColor: 'blue',
+	        dashColor: 'blue',
+	        stringColor: 'white'
+	    }));
+	    console.log('\n');
+	}
 });
