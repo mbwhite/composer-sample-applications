@@ -34,13 +34,14 @@ unzip fabric-dev-servers.zip
 # change into the repo direcoty
 cd "${DIR}"
 npm install
+cd getting-started
 npm run deployNetwork
 npm test
 
 
 cd "${DIR}"/fabric-tools
 ./stopFabric.sh
-./stopFabric.sh
+./teardownFabric.sh
 
 
 exit 0
