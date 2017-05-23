@@ -71,21 +71,21 @@ class LandRegistry {
      */
      listen(){
        this.bizNetworkConnection.on('event',(evt)=>{
-         console.log('----');
+         console.log(chalk.blue.bold('New Event'));
          console.log(evt);
 
          let options = {
            properties: { key:'value'}
          };
-         let text = evt.title['$identifier'];
-         console.log('Sending ' +text);
-         this.sendClient.send('digitalproperty-network/sale', text, options,function (err, topic,data,options) {
-                 console.log('Topic: %s', topic);
-                 console.log('Data: %s', data);
-         		      console.log('Options: %s', JSON.stringify(options));
-                  console.log(err);
-
-               });
+        //  let text = evt.title['$identifier'];
+        //  console.log('Sending ' +text);
+        //  this.sendClient.send('digitalproperty-network/sale', text, options,function (err, topic,data,options) {
+        //          console.log('Topic: %s', topic);
+        //          console.log('Data: %s', data);
+        //  		      console.log('Options: %s', JSON.stringify(options));
+        //           console.log(err);
+         //
+        //        });
 
        });
      }
@@ -270,11 +270,11 @@ class LandRegistry {
         return lr.init()
         .then(() => {
 
-            lr.sendClient = mqlight.createClient({service: 'amqp://127.0.0.1'});
-            lr.sendClient.on('started', ()=> {
-              console.log('MQlight started');
-              return lr.listen();
-            });
+            // lr.sendClient = mqlight.createClient({service: 'amqp://127.0.0.1'});
+            // lr.sendClient.on('started', ()=> {
+            //   console.log('MQlight started');
+            //   return lr.listen();
+            // });
 
 
 
