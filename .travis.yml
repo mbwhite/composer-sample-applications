@@ -11,7 +11,9 @@ before_install: |
 script: ./.travis/script.sh
 after_failure: |
     tail -n +1 -- /home/travis/.npm/_logs/*-debug.log
-
+sudo: required
+services:
+  - docker
 notifications:
   webhooks:
     urls:
