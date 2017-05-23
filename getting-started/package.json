@@ -19,8 +19,6 @@
     "deployNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna &&  composer network deploy -p hlfv1 --archiveFile digitalPropertyNetwork.bna  --enrollId admin --enrollSecret adminpw && composer network list -n digitalproperty-network --enrollId admin --enrollSecret adminpw -p hlfv1",
     "deployNetwork:hlfv0.6": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna && composer network deploy --archiveFile digitalPropertyNetwork.bna  --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d && composer network list -n digitalproperty-network --enrollId WebAppAdmin --enrollSecret DJY27pEnl16d",
     "updateNetwork": "composer archive create --sourceName digitalproperty-network --sourceType module --archiveFile digitalPropertyNetwork.bna &&  composer network update -p hlfv1 --archiveFile digitalPropertyNetwork.bna  --enrollId admin --enrollSecret adminpw && composer network list -n digitalproperty-network --enrollId admin --enrollSecret adminpw -p hlfv1"
- 
-
   },
   "repository": {
     "type": "git",
@@ -36,8 +34,9 @@
   "author": "Author",
   "license": "ISC",
   "dependencies": {
-    "mqlight": "2.0.2017051000",
     "cli-table": "^0.3.1",
+    "composer-cli": "^0.7.2",
+    "composer-client": "^0.7.2",
     "config": "^1.24.0",
     "digitalproperty-network": "latest",
     "fabric-ca-client": "1.0.0-alpha.1",
