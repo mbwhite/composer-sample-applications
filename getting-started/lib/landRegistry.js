@@ -25,7 +25,7 @@ const BusinessNetworkConnection = require('composer-client').BusinessNetworkConn
 const Table = require('cli-table');
 const winston = require('winston');
 let config = require('config').get('gettingstarted');
-const mqlight = require('mqlight');
+// const mqlight = require('mqlight');
 const prettyjson = require('prettyjson');
 
 // these are the credentials to use to connect to the Hyperledger Fabric
