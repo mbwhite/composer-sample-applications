@@ -25,6 +25,8 @@ const BusinessNetworkConnection = require('composer-client').BusinessNetworkConn
 const Table = require('cli-table');
 const winston = require('winston');
 let config = require('config').get('gettingstarted');
+const mqlight = require('mqlight');
+const prettyjson = require('prettyjson');
 
 // these are the credentials to use to connect to the Hyperledger Fabric
 let participantId = config.get('participantId');
@@ -51,6 +53,7 @@ class LandRegistry {
    * @return {Promise} A promise whose fullfillment means the initialization has completed
    */
     init() {
+
         return this.bizNetworkConnection.connect(this.CONNECTION_PROFILE_NAME, this.businessNetworkIdentifier, participantId, participantPwd)
       .then((result) => {
           this.businessNetworkDefinition = result;
@@ -63,11 +66,36 @@ class LandRegistry {
 
     }
 
+    /** Listen for the sale transaction events
+
+     */
+     listen(){
+       this.bizNetworkConnection.on('event',(evt)=>{
+         console.log('----');
+         console.log(evt);
+
+         let options = {
+           properties: { key:'value'}
+         };
+         let text = evt.title['$identifier'];
+         console.log('Sending ' +text);
+         this.sendClient.send('digitalproperty-network/sale', text, options,function (err, topic,data,options) {
+                 console.log('Topic: %s', topic);
+                 console.log('Data: %s', data);
+         		      console.log('Options: %s', JSON.stringify(options));
+                  console.log(err);
+
+               });
+
+       });
+     }
+
   /** Updates a fixes asset for selling..
   @return {Promise} resolved when this update has compelted
   */
     updateForSale() {
         const METHOD = 'updateForSale';
+
 
         return this.bizNetworkConnection.getAssetRegistry('net.biz.digitalPropertyNetwork.LandTitle')
       .then((registry) => {
@@ -78,9 +106,9 @@ class LandRegistry {
       }).then((result) => {
 
 	      let factory        = this.businessNetworkDefinition.getFactory();
-	      let transaction    = factory.newTransaction('net.biz.digitalPropertyNetwork','RegisterPropertyForSale');		
+	      let transaction    = factory.newTransaction('net.biz.digitalPropertyNetwork','RegisterPropertyForSale');
 		  transaction.title  = factory.newRelationship('net.biz.digitalPropertyNetwork', 'LandTitle', 'LID:1148');
-		  transaction.seller = factory.newRelationship('net.biz.digitalPropertyNetwork', 'Person', 'PID:1234567890'); 	
+		  transaction.seller = factory.newRelationship('net.biz.digitalPropertyNetwork', 'Person', 'PID:1234567890');
 
           LOG.info(METHOD, 'Submitting transaction');
 
@@ -231,6 +259,31 @@ class LandRegistry {
           throw error;
       });
     }
+
+    /**
+     * @description - run the listtiles command
+     * @param {Object} args passed from the command line
+     * @return {Promise} resolved when the action is complete
+     */
+      static listen(args) {
+        let lr = new LandRegistry('landRegsitryUK');
+        return lr.init()
+        .then(() => {
+
+            lr.sendClient = mqlight.createClient({service: 'amqp://127.0.0.1'});
+            lr.sendClient.on('started', ()=> {
+              console.log('MQlight started');
+              return lr.listen();
+            });
+
+
+
+         })
+        .catch(function (error) {
+          /* potentially some code for generating an error specific message here */
+            throw error;
+         });
+      }
 
   /**
    * @description - run the add default assets command

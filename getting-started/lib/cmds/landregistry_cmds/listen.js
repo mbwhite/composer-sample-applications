@@ -15,9 +15,25 @@
 
 'use strict';
 
-exports.command = 'landregistry <subcommand>';
-exports.desc = 'Manage set of tracked repos';
-exports.builder = function (yargs) {
-    return yargs.commandDir('landregistry_cmds');
+const LandRegistry = require('./../../landRegistry.js');
+const winston = require('winston');
+const LOG = winston.loggers.get('application');
+
+exports.command = 'listen';
+exports.desc = 'Listen for all events';
+exports.builder = {};
+exports.handler = function (argv) {
+
+
+    return LandRegistry.listen(argv)
+  .then(() => {
+      LOG.info('Command completed successfully.');
+  })
+  .catch((error) => {
+      LOG.error(error+ '\nCommand failed.');
+  });
+
+
+
+
 };
-exports.handler = function (argv) {};
