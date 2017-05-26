@@ -1,6 +1,6 @@
-# Hyperledger Composer Getting Started
+# Hyperledger Composer - Tutorial 2 - Running a local application
 
-Follow the instructions below to get started by standing up a Hyperledger Fabric, and then getting a simple Hyperledger Composer Business Network deployed and an application running against it.
+Follow the instructions below to get started by standing up a Hyperledger Fabric, and then getting a simple Hyperledger Composer Business Network deployed and an application running against it. A 'Getting Started' application.
 
 There are two version of Hyperledger Fabric : v0.6 and v1.0-alpha.  The default is for v1.0-alpha and we suggest this is the one you use.
 
@@ -8,14 +8,18 @@ There are two version of Hyperledger Fabric : v0.6 and v1.0-alpha.  The default 
 
 These scripts use Node v6, and bash, which are Hyperledger Composer depencies. Choose a directory that you wish to have the setup scripts within.
 
-1. In a directory of your choice (will assume `~/fabric-tools`) get the zip file that contains the tools
+1. In a directory of your choice (will assume `~/fabric-tools`) get the zip file that contains the tools.  There are both .zip and .tar.gz formats
 ```
 $ mkdir ~/fabric-tools && cd ~/fabric-tools
 $ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/fabric-dev-servers/fabric-dev-servers.zip
 $ unzip fabric-dev-servers.zip
 ```
 
-_note to developers script has been written for this need to add the repo to travis_
+```
+$ mkdir ~/fabric-tools && cd ~/fabric-tools
+$ curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/fabric-dev-servers/fabric-dev-servers.tar.gz
+$ tar xzf fabric-dev-servers.zip
+```
 
 2. Choose which version of Fabric to use. For v0.6 this needs to be set explicitly as follows.
 
@@ -73,6 +77,12 @@ Issue from the `fabric-tools` directory
 $ ./stop.sh
 ```
 
+By default, this script will pause for 15seconds to let Fabric start - on some systems this isn't enough. If you see fails in running `startFabric.sh` you can alter this value. It's controlled by a environment variable that takes a numeric value representing the number of seconds to wait.
+
+```
+$ export FABRIC_START_TIMEOUT=30
+```
+
 ### Create Composer Profile
 
 Issue from the `fabric-tools` directory
@@ -123,6 +133,8 @@ $ npm install
 3. Deploy the business network
 
 ```
+$ cd getting-started
+$ npm run deployNetwork
 $ cd getting-started
 $ npm run deployNetwork
 $ npm run deployNetwork:hlfv0.6     # if you want to use v0.6
