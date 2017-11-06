@@ -6,8 +6,6 @@ This sample application should be run against a v1.0 Hyperledger Fabric (and whi
 
 ## Step 1: Getting Hyperledger Fabric running
 
-These scripts use Node v6, and bash, which are Hyperledger Composer dependencies. Choose a directory that you wish to have the setup scripts within.
-
 1. In a directory of your choice (will assume `~/fabric-tools`) get the zip file that contains the tools.  There are both .zip and .tar.gz formats
 ```
 $ mkdir ~/fabric-tools && cd ~/fabric-tools
@@ -30,7 +28,7 @@ All the scripts will be in the directory `~/fabric-tools` you created above.  A 
 $ cd ~/fabric-tools
 $ ./downloadFabric.sh
 $ ./startFabric.sh
-$ ./createComposerProfile.sh
+$ ./createPeerAdminCard.sh
 ```
 
 Then at the end of your development session
@@ -70,11 +68,11 @@ By default, this 'start' script will pause for 15 seconds to let Fabric start - 
 $ export FABRIC_START_TIMEOUT=30
 ```
 
-### Create Composer Profile
+### Create Network Cards
 
 Issue this command from the `fabric-tools` directory
 ```
-$ ./createComposerProfile.sh
+$ ./createPeerAdminCard.sh
 ```
 
 Note: this create a Hyperledger Composer profile specifically to connect to the development fabric you've already started.
